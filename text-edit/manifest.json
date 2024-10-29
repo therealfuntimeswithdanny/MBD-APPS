@@ -1,17 +1,8 @@
 {
-    "lang": "en-us",
-    "name": "MBD Text Edit",
-    "short_name": "mbd text",
-    "description": "A basic text editor Made By Danny. With simaple but basic tools.",
-    "start_url": "/",
-    "background_color": "#2f3d58",
-    "theme_color": "#2f3d58",
-    "orientation": "any",
-    "display": "standalone",
-    "icons": [
-        {
-            "src": "/icon.png",
-            "sizes": "512x512"
-        }
-    ]
+  "name": "MBD Text Edit",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "short_name": "Text Edit",
+  "id": "test-101",
+  "description": "MBD Text Edit i a dumned down version of the soon to be gone wordpad."
 }
