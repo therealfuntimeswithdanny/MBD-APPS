@@ -1,9 +1,9 @@
 {
+  "start_url": "https://apps.madebydanny.uk",
+  "dir": "auto",
   "name": "MBD Text Edit",
   "theme_color": "#000000",
   "background_color": "#000000",
   "short_name": "Text Edit",
   "id": "test-101"
-  "start_url": "https://apps.madebydanny.uk
-
 }
