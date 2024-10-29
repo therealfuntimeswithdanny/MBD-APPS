@@ -1,9 +1,17 @@
 {
-  "start_url": "https://apps.madebydanny.uk",
-  "dir": "auto",
-  "name": "MBD Text Edit",
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "short_name": "Text Edit",
-  "id": "test-101"
+  "lang": "en-us",
+  "name": "MBD Text EDit",
+  "short_name": "Text Editor",
+  "description": "A basic text editor like wrod pad",
+  "start_url": "/",
+  "background_color": "#2f3d58",
+  "theme_color": "#2f3d58",
+  "orientation": "any",
+  "display": "standalone",
+  "icons": [
+      {
+          "src": "/icon.png",
+          "sizes": "512x512"
+      }
+  ]
 }
