@@ -108,6 +108,17 @@
 .font3 .editor {
   font-family: "Lucida Console", "Courier New", monospace;
 }
+.a1 .editor{
+  text-decoration: overline;
+}
+
+.a2 .editor{
+  text-decoration: line-through;
+}
+
+.a3 .editor {
+  text-decoration: overline underline;
+}
 </style>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 </head>
@@ -173,6 +184,14 @@ Click the text size, color or location you whant to set it, Then click it agin t
                 <a  href="javascript:void(0)" onclick="font1()">Times New Roman</a>
                 <a  href="javascript:void(0)" onclick="font2()">Arial</a>
                 <a  href="javascript:void(0)" onclick="font3()">Lucida Console</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <span>Decoration </span>
+            <div class="dropdown-content">
+                <a  href="javascript:void(0)" onclick="a1()">Overline</a>
+                <a  href="javascript:void(0)" onclick="a2()">Line-through</a>
+                <a  href="javascript:void(0)" onclick="a3()">Overline & Underline</a>
             </div>
         </div>
         <br>
@@ -276,7 +295,18 @@ function font3() {
    var element = document.body;
    element.classList.toggle("font3");
 }
-
+function a1() {
+   var element = document.body;
+   element.classList.toggle("a1");
+}
+function a2() {
+   var element = document.body;
+   element.classList.toggle("a2");
+}
+function a3() {
+   var element = document.body;
+   element.classList.toggle("a3");
+}
 </script>
 </body>
 <script>
