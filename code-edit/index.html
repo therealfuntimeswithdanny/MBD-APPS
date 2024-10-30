@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MBD Code Edit | Monaco Editor</title>
+  <link rel="icon" type="image/x-icon" href="https://apps.madebydanny.uk/text-edit/icon.png">
+  <style>
+    body {
+      display: flex;
+      background-color: white;
+    }
+    #editor {
+      width: 50%;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    #outputArea {
+      width: 50%;
+      height: 100vh;
+      border-left: 1px solid #000;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+    .bar{
+        background-color: blanchedalmond;
+        height: 100vh;
+        width: 120px;
+        padding: 10px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor/min/vs/loader.js"></script>
+  <script>
+    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor/min/vs' }});
+    window.MonacoEnvironment = { getWorkerUrl: function(workerId, label) { return `data:text/javascript;charset=utf-8,${encodeURIComponent(`self.MonacoEnvironment = { baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor/min/' }; importScripts('https://cdn.jsdelivr.net/npm/monaco-editor/min/vs/base/worker/workerMain.js');`)}`; }};
+  </script>
+</head>
+<body>
+<div class="row">
+    <div class="bar">
+        <h3>MBD Code Editor</h3>
+        <div id="repoInfo">Connecting to api.github.com</div>
+
+    <script>
+        fetch('https://api.github.com/repos/therealfuntimeswithdanny/RedJacket-Web')
+            .then(response => response.json())
+            .then(data => {
+                const lastUpdated = new Date(data.updated_at).toLocaleString();
+                document.getElementById('repoInfo').innerText = `Last Updated at: ${lastUpdated}`;
+            });
+    </script>
+        <p><a href="https://apps.madebydanny.uk">Home</a> <br> <a href="https://apps.madebydanny.uk/text-edit/index.html">Text Edit</a>
+        <hr>
+        <p>        <a><b>File Tools</b></a>
+            <a><button onclick="copySelectedText()">Copy Text</button></a>
+            <button onclick="saveSelectedText()">Save As Text File</button>
+    </p>
+    </div>
+</div>
+<div id="editor">
+</div>
+<div id="outputArea"></div>
+
+<script>
+  require(['vs/editor/editor.main'], function() {
+    const editor = monaco.editor.create(document.getElementById('editor'), {
+      value: '<h3> How to Save/Copy Text <br><b>Step 1:</b>Click anywhere <br><b>Step 2:</b>Click Save/Copy</h3><h1>Powerd Monaco Editor</h1>',
+      language: 'html',
+      theme: 'vs-dark'
+    });
+
+    editor.onDidChangeModelContent(function() {
+      const code = editor.getValue();
+      document.getElementById('outputArea').innerHTML = code;
+    });
+  });
+</script>
+<script>
+      function saveSelectedText() {
+        const selectedText = window.getSelection().toString();
+        if (selectedText) {
+          const blob = new Blob([selectedText], { type: 'text/html' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'selected_text.html';
+          link.click();
+        } else {
+          alert('No text selected.');
+        }
+      }
+</script>
+<script>
+    function uploadFile() {
+      const input = document.getElementById('fileInput');
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const contents = e.target.result;
+          document.getElementById('fileContents').textContent = contents;
+        };
+        reader.readAsText(file);
+      } else {
+        alert('No file selected.');
+      }
+    }
+</script>
+    
+<script> function copySelectedText() { const selectedText = window.getSelection().toString(); if (selectedText) { navigator.clipboard.writeText(selectedText).then(function() { alert('Copied to clipboard!'); }, function(err) { alert('Failed to copy text.'); }); } else { alert('No text selected.'); } } </script>
+</body>
+</html>
