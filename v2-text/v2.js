@@ -257,4 +257,7 @@ function goToBookmark() {
         alert("Bookmark not found");
     }
 }
+function insertHorizontalLine() {
+    document.execCommand('insertHorizontalRule', false, null);
+}
 
