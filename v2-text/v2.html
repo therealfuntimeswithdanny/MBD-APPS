@@ -8,8 +8,10 @@
 <link rel="icon" type="image/x-icon" href="https://dev.cdn.madebydanny.uk/MBDTeamLogobyDesigner.png">
 
     <style>
+        .dark-mode #toolbar { padding: 10px; background-color: black; border-left: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; position: fixed; right: 0; top: 0; height: 100vh; width: 120px; box-shadow: -2px 0 5px rgba(0,0,0,0.1); overflow-y: auto; }
         body { display: flex; height: 100vh; margin: 0; }
         #toolbar { padding: 10px; background-color: #f0f0f0; border-left: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; position: fixed; right: 0; top: 0; height: 100vh; width: 120px; box-shadow: -2px 0 5px rgba(0,0,0,0.1); overflow-y: auto; }
+        .dark-mode #editor { background-color: black; flex-grow: 1; padding: 10px; border: none; outline: none; margin-right: 60px; overflow: auto; }
         #editor { flex-grow: 1; padding: 10px; border: none; outline: none; margin-right: 60px; overflow: auto; }
         .button { margin: 10px 0; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 5px; cursor: pointer; }
         .button:hover { background-color: #eaeaea; }
@@ -17,52 +19,119 @@
         p{
             text-align: center;
         }
-        a{
+        .dark-mode        a{
             text-align: center;
-            color: black;
+            color: white;
             text-decoration: underline;
         }
-    </style>
+        a{
+            text-decoration: underline;
+            color: black;
+            text-align: center;
+        }
+        .button, select, input[type="color"] { margin: 10px 0; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 5px; cursor: pointer; width: 100%; }
+        .dropdown-content { display: none; flex-direction: column; }
+        .dropdown:hover .dropdown-content { display: flex; }
+        .button:hover { background-color: #eaeaea; }
+        </style>
 </head>
 <body>
     <div id="toolbar">
-        <a><b>MBD<br>Text Edit plus</b><br>PWA By MBD<br>V2.0[Stable]</a>
+        <a><b>MBD<br>Text Edit plus</b><hr><br>PWA By MBD<br>V2.0[Stable]</a>
+        <hr>
         <a href="https://apps.madebydanny.uk">DEV Apps Home</a>
         <a href="https://code-edit.madebdyanny.uk">Switch to code editor</a>
-        <button class="button" onclick="execCmd('bold')"><i class="fa-solid fa-bold"></i><b>Bold</b></button>
-        <button class="button" onclick="execCmd('italic')"><i>Italic</i></button>
-        <button class="button" onclick="execCmd('underline')"><u>Underline</u></button>
-        <button class="button" onclick="execCmd('justifyLeft')">Left</button>
-        <button class="button" onclick="execCmd('justifyCenter')">Center</button>
-        <button class="button" onclick="execCmd('justifyRight')">Right</button>
-        <button class="button" onclick="document.getElementById('imageInput').click()">Image</button>
-        <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
-        <select onchange="execCmd('fontName', this.value)">
-            <option value="Arial">Arial</option>
-            <option value="Courier New">Courier</option>
-            <option value="Times New Roman">Times</option>
-        </select>
-        <select onchange="execCmd('fontSize', this.value)">
-            <option value="1">10px</option>
-            <option value="2">13px</option>
-            <option value="3">16px</option>
-            <option value="4">18px</option>
-            <option value="5">24px</option>
-            <option value="6">32px</option>
-            <option value="7">48px</option>
-        </select>
-        <input type="color" onchange="execCmd('foreColor', this.value)">
-        <button class="button" onclick="insertLink()">Link</button>
-        <button class="button" onclick="highlightText()">Highlight</button>
-        <button class="button" onclick="insertTable()">Table</button>
-        <button class="button" onclick="copyText()">Copy Text</button>
-        <button class="button" onclick="clearText()">Clear Document</button>
-        <button class="button" onclick="saveHTML()">Save</button>
+        <button class="button" onclick="myFunction()">Dark Mode</button>
+
+        <div class="dropdown">
+            <button class="button">Text Format</button>
+            <div class="dropdown-content">
+                <button class="button" onclick="execCmd('bold')"><b>Bold</b></button>
+                <button class="button" onclick="execCmd('italic')"><i>Italic</i></button>
+                <button class="button" onclick="execCmd('underline')"><u>Underline</u></button>
+                <select onchange="changeLetterSpacing(this.value)">
+                    <option value="normal">Letter Spaceing</option>
+                    <option value="1px">1px</option>
+                    <option value="2px">2px</option>
+                    <option value="3px">3px</option>
+                </select>
+                <button class="button" onclick="execCmd('strikethrough')"><s>Strike Through</s></button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="button">Text Align</button>
+            <div class="dropdown-content">
+                <button class="button" onclick="execCmd('justifyLeft')">Left</button>
+                <button class="button" onclick="execCmd('justifyCenter')">Center</button>
+                <button class="button" onclick="execCmd('justifyRight')">Right</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="button">Text Styleing</button>
+            <div class="dropdown-content">
+                <select onchange="execCmd('fontName', this.value)">
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier</option>
+                    <option value="Times New Roman">Times</option>
+                </select>
+                <select onchange="execCmd('fontSize', this.value)">
+                    <option value="1">10px</option>
+                    <option value="2">13px</option>
+                    <option value="3">16px</option>
+                    <option value="4">18px</option>
+                    <option value="5">24px</option>
+                    <option value="6">32px</option>
+                    <option value="7">48px</option>
+                </select>
+                <button class="button" onclick="highlightText()">Highlight</button>
+                <input type="color" onchange="execCmd('foreColor', this.value)">
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="button">Insert</button>
+            <div class="dropdown-content">
+                <button class="button" onclick="document.getElementById('imageInput').click()">Image</button>
+                <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
+        
+                <button class="button" onclick="insertLink()">Link</button>
+                <button class="button" onclick="insertTable()">Table</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="button"><i class="fa-solid fa-caret-down"></i>File Tools</button>
+            <div class="dropdown-content">
+                <button class="button" onclick="copyText()">Copy</button>
+                <button class="button" onclick="clearText()">Clear</button>
+                <button class="button" onclick="saveHTML()">Save</button>
+                <button class="button" onclick="document.getElementById('htmlInput').click()">Upload HTML</button>
+                <input type="file" id="htmlInput" style="display: none;" accept=".html" onchange="uploadHTML(event)">
+            </div>
+        </div>
+        <hr>
+        <a><i class="fa-brands fa-reddit"></i>Reddit</a>
+        <a><i class="fa-brands fa-instagram"></i>Instagram</a>
+        <a><i class="fa-brands fa-youtube"></i>YouTube</a>
+        <a><i class="fa-brands fa-twitch"></i>Twitch</a>
+        <hr>
         <a>Code is under MIT licence <br> Code is Open Source</a>
         <a href="https://github.com">Open Github Repo</a>
+        
     </div>
     <div id="editor" contenteditable="true"></div>
     <script>
+        function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+            function updateWordCount() {
+            const text = document.getElementById('editor').innerText;
+            const wordCount = text.trim().split(/\s+/).filter(word => word).length;
+            document.getElementById('wordCount').innerText = `Word Count: ${wordCount}`;
+        }
+        function changeLetterSpacing(value) { document.execCommand('styleWithCSS', false, true); document.execCommand('letterSpacing', false, value); }
+        function dropwShadow(){
+            document.execCommand('insertHTML', false, '<span style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">' + document.getSelection().toString() + '</span>');
+        }
         function saveHTML() { const editorContent = document.getElementById('editor').innerHTML; const blob = new Blob([editorContent], { type: "text/html;charset=utf-8" }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = "text-edit-plus|documnet.html"; link.click(); }
 
         function insertImage(event) {
@@ -128,6 +197,7 @@
             e.returnValue = confirmationMessage;
             return confirmationMessage;
         });
+        function uploadHTML(event) { const file = event.target.files[0]; const reader = new FileReader(); reader.onload = function(e) { document.getElementById('editor').innerHTML = e.target.result; }; reader.readAsText(file); }
     </script>
 </body>
 </html>
