@@ -17,6 +17,7 @@
         .button:hover { background: #eaeaea; }
         .dark-mode { background-color: #333; color: #ddd; }
         a { color: black; }
+        #bottomToolbar { padding: 10px; background-color: #f0f0f0; border-top: 1px solid #ddd; display: flex; justify-content: space-between; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -28,10 +29,11 @@
             <p> | </p>
             <p><a href="https://apps.madebydanny.uk/code-edit/index.html">Switch to Code Editor</a></p>
             <p> | </p>
-            <p><a><i class="fa-brands fa-reddit"></i></a> <a><i class="fa-brands fa-github"></i></a><a><i class="fa-brands fa-youtube"></i></a><a><i class="fa-brands fa-instagram"></i></a><a><i class="fa-brands fa-twitch"></i></a></p>
+            <p><a><i class="fa-brands fa-reddit"></i></a> <a><i class="fa-brands fa-github"></i></a> <a><i class="fa-brands fa-youtube"></i></a> <a><i class="fa-brands fa-instagram"></i></a> <a><i class="fa-brands fa-twitch"></i></a></p>
         </div>
         <div id="rightSide">            <button class="button" onclick="execCmd('bold')"><b>Bold</b></button>
             <button class="button" onclick="execCmd('italic')"><i>Italic</i></button>
+            <button class="button" onclick="highlightText()">Highlight</button>
             <button class="button" onclick="execCmd('underline')"><u>Underline</u></button>
             <button class="button" onclick="execCmd('strikethrough')"><s>Strikethrough</s></button>
             <button class="button" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
@@ -43,15 +45,26 @@
             <button class="button" onclick="execCmd('undo')"><i class="fa-solid fa-arrow-left"></i></button>
             <button class="button" onclick="execCmd('redo')"><i class="fa-solid fa-arrow-right"></i></button>
             <button class="button" onclick="toggleDarkMode()">Dark Mode</button>
+            <button class="button" onclick="clearText()">Clear</button>
             <button class="button" onclick="saveHTML()">Save</button>
             <button class="button" onclick="document.getElementById('htmlInput').click()">Upload</button>
             <input type="file" id="htmlInput" style="display: none;" accept=".html" onchange="uploadHTML(event)">
         </div>
     </div>
     <div id="editor" contenteditable="true" oninput="updateWordCount()"></div>
-    <div id="wordCount">Word Count: 0</div>
+    <div id="bottomToolbar"> 
+        <div id="wordCount">Word Count: 0</div> 
+        <p><a href="https://github.com">Code is open source | View On GitHub                   |</a></p>
+    </div>
 
     <script>
+                function highlightText() {
+            const color = prompt("Enter the highlight color (e.g., yellow, pink)");
+            if (color) {
+                document.execCommand('hiliteColor', false, color);
+            }
+        }
+        function clearText() { const editor = document.getElementById('editor'); editor.innerHTML = ''; updateWordCount();}
         function execCmd(command) {
             document.execCommand(command, false, null);
         }
