@@ -236,4 +236,25 @@ function increaseIndent() {
 function decreaseIndent() {
     document.execCommand('outdent', false, null);
 }
+function addBookmark() {
+    const bookmarkName = prompt("Enter bookmark name");
+    if (bookmarkName) {
+        const editor = document.getElementById('editor');
+        const span = document.createElement('span');
+        span.id = bookmarkName;
+        span.textContent = "🔖";
+        span.style.color = "black";
+        editor.appendChild(span);
+    }
+}
+
+function goToBookmark() {
+    const bookmarkName = prompt("Enter bookmark name to go to");
+    const bookmark = document.getElementById(bookmarkName);
+    if (bookmark) {
+        bookmark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        alert("Bookmark not found");
+    }
+}
 
