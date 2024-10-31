@@ -1,4 +1,4 @@
-function changeTextSize() {
+   function changeTextSize() {
     const size = prompt("Enter the text size (1-7)");
     if (size) {
         document.execCommand('fontSize', false, size);
@@ -166,3 +166,74 @@ function changeFontFamily() {
             };
             reader.readAsText(file);
         }
+        let versionHistory = [];
+
+function saveVersion() {
+    const content = document.getElementById('editor').innerHTML;
+    const timestamp = new Date().toLocaleString();
+    versionHistory.push({ timestamp, content });
+    localStorage.setItem('versionHistory', JSON.stringify(versionHistory));
+    alert('Version saved!');
+}
+
+function loadVersionHistory() {
+    const savedVersions = JSON.parse(localStorage.getItem('versionHistory')) || [];
+    versionHistory = savedVersions;
+}
+
+function showVersionHistory() {
+    loadVersionHistory();
+    const historyContainer = document.createElement('div');
+    historyContainer.style.position = 'fixed';
+    historyContainer.style.top = '10%';
+    historyContainer.style.left = '10%';
+    historyContainer.style.width = '80%';
+    historyContainer.style.height = '80%';
+    historyContainer.style.backgroundColor = 'white';
+    historyContainer.style.border = '1px solid #ccc';
+    historyContainer.style.overflowY = 'scroll';
+    historyContainer.style.zIndex = '1000';
+    document.body.appendChild(historyContainer);
+
+    versionHistory.forEach((version, index) => {
+        const versionDiv = document.createElement('div');
+        versionDiv.style.padding = '10px';
+        versionDiv.style.borderBottom = '1px solid #ddd';
+
+        const versionContent = document.createElement('div');
+        versionContent.innerHTML = version.content;
+        versionContent.style.marginTop = '10px';
+
+        const loadButton = document.createElement('button');
+        loadButton.textContent = 'Load';
+        loadButton.onclick = () => loadVersion(index);
+
+        versionDiv.innerHTML = `<strong>${version.timestamp}</strong>`;
+        versionDiv.appendChild(loadButton);
+        versionDiv.appendChild(versionContent);
+
+        historyContainer.appendChild(versionDiv);
+    });
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.onclick = () => document.body.removeChild(historyContainer);
+    historyContainer.appendChild(closeButton);
+}
+
+function loadVersion(index) {
+    const selectedVersion = versionHistory[index];
+    if (selectedVersion) {
+        document.getElementById('editor').innerHTML = selectedVersion.content;
+    }
+}
+
+window.onload = loadVersionHistory;
+function increaseIndent() {
+    document.execCommand('indent', false, null);
+}
+
+function decreaseIndent() {
+    document.execCommand('outdent', false, null);
+}
+

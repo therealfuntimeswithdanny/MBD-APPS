@@ -9,6 +9,7 @@
 
     <style>
         body { display: flex; flex-direction: column; height: 100vh; margin: 0; }
+        .dark-mode #toolbar { padding: 10px; background-color: gray; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
         #toolbar { padding: 10px; background-color: #f0f0f0; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
         #leftSide { display: flex; }
         #rightSide { display: flex; }
@@ -46,6 +47,8 @@
 .dropdown-content .button:hover {
     background-color: #ddd;
 }
+.dark-mode #bottomToolbar { padding: 10px; background-color: gray; border-top: 1px solid #ddd; display: flex; justify-content: space-between; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+
         #bottomToolbar { padding: 10px; background-color: #f0f0f0; border-top: 1px solid #ddd; display: flex; justify-content: space-between; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
     </style>
 </head>
@@ -68,7 +71,7 @@
             <button class="button" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
             <button class="button" onclick="execCmd('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
             <button class="button" onclick="execCmd('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
-            <button class="button" onclick="document.getElementById('imageInput').click()">Image</button>
+            <button class="button" onclick="document.getElementById('imageInput').click()"><i class="fa-solid fa-mountain-sun"></i></button>
             <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
             <button class="button" onclick="insertTable()">Table</button>
             <div class="dropdown">
@@ -84,6 +87,13 @@
             <button class="button" onclick="createLink()">Link</button>
             <button class="button" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
             <button class="button" onclick="changeTextColor()">Text Color</button>
+            <div class="dropdown">
+                <button class="button">Indentation</button>
+                <div class="dropdown-content">
+                    <button class="button" onclick="increaseIndent()">Increase Indent</button>
+                    <button class="button" onclick="decreaseIndent()">Decrease Indent</button>
+                </div>
+            </div>            
             <button class="button" onclick="changeTextSize()">Font Size</button>
             <button class="button" onclick="changeFontFamily()">Font Family</button>
             <button class="button" onclick="execCmd('undo')"><i class="fa-solid fa-arrow-left"></i></button>
@@ -91,6 +101,8 @@
             <button class="button" onclick="toggleDarkMode()">Dark Mode</button>
             <button class="button" onclick="clearText()">Clear</button>
             <button class="button" onclick="saveHTML()">Save</button>
+            <button class="button" onclick="saveVersion()"><i class="fa-solid fa-floppy-disk"></i></button>
+            <button class="button" onclick="showVersionHistory()"><i class="fa-solid fa-clock-rotate-left"></i></button>
             <button class="button" onclick="printDocument()"><i class="fa-solid fa-print"></i></button>
             <button class="button" onclick="document.getElementById('htmlInput').click()">Upload</button>
             <input type="file" id="htmlInput" style="display: none;" accept=".html" onchange="uploadHTML(event)">
