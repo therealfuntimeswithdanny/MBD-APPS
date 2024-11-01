@@ -275,4 +275,111 @@ function speakText() {
     const speech = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(speech);
 }
+function translateText() {
+    const text = document.getElementById('editor').innerText;
+    const targetLanguage = prompt("Enter the target language code (e.g., 'es' for Spanish, 'fr' for French)");
+
+    if (targetLanguage) {
+        fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLanguage}`)
+            .then(response => response.json())
+            .then(data => {
+                const translatedText = data.responseData.translatedText;
+                document.getElementById('editor').innerText = translatedText;
+            })
+            .catch(error => console.error('Error translating text:', error));
+    }
+}
+function lookupWord() {
+    const word = prompt("Enter the word to look up");
+    if (word) {
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data[0] && data[0].meanings[0] && data[0].meanings[0].definitions[0]) {
+                    const definition = data[0].meanings[0].definitions[0].definition;
+                    alert(`Definition of ${word}: ${definition}`);
+                } else {
+                    alert(`No definition found for ${word}`);
+                }
+            })
+            .catch(error => console.error('Error looking up word:', error));
+    }
+}
+function insertIframe() {
+    const url = prompt("Enter the website URL");
+    if (url) {
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.width = '100%';
+        iframe.height = '400px';
+        iframe.style.border = '1px solid #ccc';
+        iframe.className = 'embedded-iframe';
+        document.execCommand('insertHTML', false, iframe.outerHTML);
+    }
+}
+
+function removeIframe() {
+    const iframes = document.querySelectorAll('.embedded-iframe');
+    if (iframes.length > 0) {
+        iframes[iframes.length - 1].remove();
+    } else {
+        alert("No embedded iframes found.");
+    }
+}
+function changeBackgroundColor() {
+    const color = prompt("Enter the background color (e.g., red, blue, #123456)");
+    if (color) {
+        document.getElementById('editor').style.backgroundColor = color;
+    }
+}
+let recognition;
+
+function startSpeechRecognition() {
+    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.continuous = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[event.resultIndex][0].transcript;
+        document.execCommand('insertText', false, transcript);
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error', event.error);
+    };
+
+    recognition.start();
+}
+
+function stopSpeechRecognition() {
+    if (recognition) {
+        recognition.stop();
+    }
+}
+function insertYouTubeVideo() {
+    const url = prompt("Enter the YouTube video URL");
+    if (url) {
+        const videoId = url.split('v=')[1];
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.width = '100%';
+        iframe.height = '500px';
+        iframe.frameBorder = '0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.className = 'embedded-video';
+        document.execCommand('insertHTML', false, iframe.outerHTML);
+    }
+}
+
+function removeYouTubeVideo() {
+    const videos = document.querySelectorAll('.embedded-video');
+    if (videos.length > 0) {
+        videos[videos.length - 1].remove();
+    } else {
+        alert("No embedded videos found.");
+    }
+}
 

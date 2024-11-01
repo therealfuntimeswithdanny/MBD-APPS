@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MBD Apps | Danny Docs | Text Edit Plus</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="v2.js"></script>
     <script src="https://kit.fontawesome.com/0ca27f8db1.js" crossorigin="anonymous"></script>
 
@@ -82,6 +83,10 @@
                     <button class="button" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i>Numberd list</button>
                     <button class="button" onclick="document.getElementById('imageInput').click()"><i class="fa-solid fa-mountain-sun"></i>Image</button>
                     <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
+                    <button class="button" onclick="insertIframe()">Add Website[Iframe]</button>
+                    <button class="button" onclick="removeIframe()">Remove Website [Iframe]</button>
+                    <button class="button" onclick="insertYouTubeVideo()">Add YouTube Video</button>
+                    <button class="button" onclick="removeYouTubeVideo()">Remove YouTube Video</button>
                 </div>
             </div>
             <div class="dropdown">
@@ -119,6 +124,7 @@
                     <button class="button" onclick="execCmd('redo')"><i class="fa-solid fa-arrow-right"></i>Redo</button>
                     <button class="button" onclick="addBookmark()"><i class="fa-solid fa-bookmark"></i>Bookmark</button>
                     <button class="button" onclick="goToBookmark()"><i class="fa-solid fa-book-open"></i>Open Bookmark</button>
+                    <button class="button" onclick="changeBackgroundColor()"><i class="fa-solid fa-fill"></i>Change Background Color</button>
                 </div>
             </div>              
             <div class="dropdown">
@@ -126,7 +132,10 @@
                 <div class="dropdown-content">
                  <button class="button" onclick="toggleDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i>Dark Mode</button>
                  <button class="button" onclick="speakText()"><i class="fa-solid fa-ear-listen"></i>Text-to-Speech</button>
-
+                 <button class="button" onclick="translateText()"><i class="fa-solid fa-language"></i>Translate Text</button>
+                 <button class="button" onclick="lookupWord()"><i class="fa-solid fa-book-bookmark"></i>Lookup Word</button>
+                 <button class="button" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i>Speech to Text</button>
+                 <button class="button" onclick="stopSpeechRecognition()"><i class="fa-solid fa-microphone-slash"></i>Stop Speech to Text</button>
                 </div>
             </div>              
         </div>    
@@ -134,7 +143,7 @@
     <div id="editor" contenteditable="true" oninput="updateWordCount()"></div>
     <div id="bottomToolbar"> 
         <div id="wordCount">Word Count: 0</div> 
-        <p>Danny Docs | MBD DEV | Backed By Cloudflare | Icons Powerd By Fontawesome | Version 2.1 [Stable]</p>
+        <p>Danny Docs | MBD DEV | Backed By Cloudflare | Icons Powerd By Fontawesome | Version 2.3 [Stable]</p>
         <p><a href="https://github.com/therealfuntimeswithdanny/MBD-APPS">Code is open source | View On GitHub                   |</a></p>
     </div>
 </body>
