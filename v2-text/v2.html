@@ -55,12 +55,9 @@
 <body>
     <div id="toolbar">
         <div id="leftSide">
-            <p> MBD Text Editor Plus | Version 2.0 [Stable]</p>
+            <p> MBD Text Editor Plus </p>
             <p> | </p>
             <p><a href="https://apps.madebydanny.uk">MBD Apps Home</a></p>
-            <p> | </p>
-            <p><a href="https://apps.madebydanny.uk/code-edit/index.html">Switch to Code Editor</a></p>
-            <p> | </p>
             <p><a href="https://www.reddit.com/user/funtimeswithdanny/m/mbd_team/"><i class="fa-brands fa-reddit"></i></a> <a href="https://github.com/therealfuntimeswithdanny"><i class="fa-brands fa-github"></i></a> <a href="https://youtube.com/@MadeByDanny"><i class="fa-brands fa-youtube"></i></a> <a href="https://www.instagram.com/funtimeswithdanny/"><i class="fa-brands fa-instagram"></i></a> <a href="twitch.tv/funtimeswithdanny"><i class="fa-brands fa-twitch"></i></a></p>
         </div>
         <div id="rightSide">            <button class="button" onclick="execCmd('bold')"><b>Bold</b></button>
@@ -73,9 +70,9 @@
             <button class="button" onclick="execCmd('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
             <button class="button" onclick="document.getElementById('imageInput').click()"><i class="fa-solid fa-mountain-sun"></i></button>
             <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
-            <button class="button" onclick="insertTable()">Table</button>
+            <button class="button" onclick="insertTable()"><i class="fa-solid fa-table"></i></button>
             <div class="dropdown">
-                <button class="button">Table Options</button>
+                <button class="button"><i class="fa-solid fa-table-cells"></i><i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <button class="button" onclick="addRow()">Add Row</button>
                     <button class="button" onclick="deleteRow()">Delete Row</button>
@@ -113,7 +110,7 @@
     <div id="editor" contenteditable="true" oninput="updateWordCount()"></div>
     <div id="bottomToolbar"> 
         <div id="wordCount">Word Count: 0</div> 
-        <p>Danny Docs | MBD DEV | Backed By Cloudflare | Icons Powerd By Fontawesome</p>
+        <p>Danny Docs | MBD DEV | Backed By Cloudflare | Icons Powerd By Fontawesome | Version 2.1 [Stable]</p>
         <p><a href="https://github.com/therealfuntimeswithdanny/MBD-APPS">Code is open source | View On GitHub                   |</a></p>
     </div>
 </body>
