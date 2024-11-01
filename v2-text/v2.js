@@ -270,4 +270,9 @@ function findAndReplace() {
 function insertBulletPoints() {
     document.execCommand('insertUnorderedList', false, null);
 }
+function speakText() {
+    const text = document.getElementById('editor').innerText;
+    const speech = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(speech);
+}
 

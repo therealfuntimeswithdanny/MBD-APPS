@@ -62,7 +62,7 @@
         </div>
         <div id="rightSide">
             <div class="dropdown">
-                <button class="button">File</button>
+                <button class="button">File<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <button class="button" onclick="clearText()"><i class="fa-solid fa-eraser"></i></button>
                     <button class="button" onclick="findAndReplace()"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="dropdown">
-                <button class="button">Insert</button>
+                <button class="button">Insert<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <button class="button" onclick="createLink()"><i class="fa-solid fa-link"></i></button>
                     <button class="button" onclick="insertBulletPoints()"><i class="fa-solid fa-list-ul"></i></button>
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="dropdown">
-                <button class="button">Text Styleing</button>
+                <button class="button">Text Styleing<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                  <button class="button" onclick="changeTextColor()"><i class="fa-solid fa-font" style="color: #ee6d80;"></i></button>
                  <button class="button" onclick="increaseIndent()">Increase Indent</button>
@@ -113,16 +113,23 @@
                 </div>
             </div>  
             <div class="dropdown">
-                <button class="button">Document Tools</button>
+                <button class="button">Document Tools<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <button class="button" onclick="execCmd('undo')"><i class="fa-solid fa-arrow-left"></i></button>         
                     <button class="button" onclick="execCmd('redo')"><i class="fa-solid fa-arrow-right"></i></button>
-                    <button class="button" onclick="toggleDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i></button>
                     <button class="button" onclick="addBookmark()"><i class="fa-solid fa-bookmark"></i></button>
                     <button class="button" onclick="goToBookmark()"><i class="fa-solid fa-book-open"></i></button>
                 </div>
             </div>              
-        </div>
+            <div class="dropdown">
+                <button class="button">Accessibility<i class="fa-solid fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                 <button class="button" onclick="toggleDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i>Dark Mode</button>
+                 <button class="button" onclick="speakText()"><i class="fa-solid fa-ear-listen"></i>Text-to-Speech</button>
+
+                </div>
+            </div>              
+        </div>    
     </div>
     <div id="editor" contenteditable="true" oninput="updateWordCount()"></div>
     <div id="bottomToolbar"> 
