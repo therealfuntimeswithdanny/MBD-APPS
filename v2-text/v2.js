@@ -257,7 +257,14 @@ function goToBookmark() {
         alert("Bookmark not found");
     }
 }
-function insertHorizontalLine() {
-    document.execCommand('insertHorizontalRule', false, null);
+function findAndReplace() {
+    const findText = prompt("Enter text to find");
+    const replaceText = prompt("Enter text to replace with");
+    if (findText && replaceText) {
+        const editor = document.getElementById('editor');
+        const content = editor.innerHTML;
+        const updatedContent = content.replace(new RegExp(findText, 'g'), replaceText);
+        editor.innerHTML = updatedContent;
+    }
 }
 
