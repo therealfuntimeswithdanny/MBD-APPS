@@ -563,4 +563,39 @@ function splitCells() {
 function toggleHighContrast() {
     document.body.classList.toggle('high-contrast');
 }
+function addLink() {
+    const url = prompt("Enter the URL");
+    if (url) {
+        document.execCommand('createLink', false, url);
+    }
+}
+
+function editLink() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const node = range.startContainer.parentNode;
+        if (node && node.nodeName === 'A') {
+            const newUrl = prompt("Enter the new URL", node.href);
+            if (newUrl) {
+                node.href = newUrl;
+            }
+        } else {
+            alert("Please select a link to edit.");
+        }
+    }
+}
+
+function removeLink() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const node = range.startContainer.parentNode;
+        if (node && node.nodeName === 'A') {
+            document.execCommand('unlink', false, null);
+        } else {
+            alert("Please select a link to remove.");
+        }
+    }
+}
 
