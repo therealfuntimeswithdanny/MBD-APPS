@@ -614,4 +614,11 @@ async function exportToDocx() {
     link.download = "document.docx";
     link.click();
 }
-
+function exportToText() {
+    const content = document.getElementById('editor').innerText;
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = "document.txt";
+    link.click();
+}
