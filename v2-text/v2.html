@@ -11,7 +11,9 @@
     <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/6.1.1/docx.min.js"></script>
+
 
 
     <style>
@@ -99,6 +101,7 @@
                     <button class="button" onclick="printDocument()"><i class="fa-solid fa-print"></i>Print</button>
                     <button class="button" onclick="document.getElementById('htmlInput').click()"><i class="fa-solid fa-upload"></i>Upload</button>
                     <input type="file" id="htmlInput" style="display: none;" accept=".html" onchange="uploadHTML(event)">
+                    <button class="button" onclick="exportToDocx()">Export as .docx</button>
                 </div>
             </div>
             <div class="dropdown">
@@ -158,9 +161,9 @@
             <div class="dropdown">
                 <button class="button">Links<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
-                    <button class="button" onclick="addLink()">Add Link</button>
+                    <button class="button" onclick="addLink()"><i class="fa-solid fa-link"></i>Add Link</button>
                     <button class="button" onclick="editLink()">Edit Link</button>
-                    <button class="button" onclick="removeLink()">Remove Link</button>
+                    <button class="button" onclick="removeLink()"><i class="fa-solid fa-link-slash"></i>Remove Link</button>
                 </div>
             </div>
             <div class="dropdown">

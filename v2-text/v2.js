@@ -598,4 +598,20 @@ function removeLink() {
         }
     }
 }
+async function exportToDocx() {
+    const { Document, Packer, Paragraph, TextRun } = window.docx;
+
+    const content = document.getElementById('editor').innerText;
+    const doc = new Document();
+    const paragraphs = content.split('\n').map(line => new Paragraph(line));
+
+    paragraphs.forEach(paragraph => doc.addSection({ children: [paragraph] }));
+
+    const packer = new Packer();
+    const blob = await packer.toBlob(doc);
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = "document.docx";
+    link.click();
+}
 
