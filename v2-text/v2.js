@@ -267,4 +267,7 @@ function findAndReplace() {
         editor.innerHTML = updatedContent;
     }
 }
+function insertBulletPoints() {
+    document.execCommand('insertUnorderedList', false, null);
+}
 
