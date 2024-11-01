@@ -382,4 +382,66 @@ function removeYouTubeVideo() {
         alert("No embedded videos found.");
     }
 }
+let cropper;
+
+function openImageEditor(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const image = document.getElementById('imageToEdit');
+        image.src = e.target.result;
+        document.getElementById('imageEditorModal').style.display = 'block';
+        cropper = new Cropper(image, {
+            aspectRatio: 1,
+            viewMode: 1
+        });
+    };
+    reader.readAsDataURL(file);
+}
+
+function applyCrop() {
+    const canvas = cropper.getCroppedCanvas();
+    const croppedImage = canvas.toDataURL('image/png');
+    document.execCommand('insertImage', false, croppedImage);
+    closeImageEditor();
+}
+
+function closeImageEditor() {
+    document.getElementById('imageEditorModal').style.display = 'none';
+    cropper.destroy();
+}
+
+function removeLastImage() {
+    const images = document.querySelectorAll('#editor img');
+    if (images.length > 0) {
+        images[images.length - 1].remove();
+    } else {
+        alert("No images found.");
+    }
+}
+function insertCheckbox() {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    document.execCommand('insertHTML', false, checkbox.outerHTML);
+}
+function insertEquation() {
+    const equation = prompt("Enter the LaTeX equation (e.g., E=mc^2)");
+    if (equation) {
+        const span = document.createElement('span');
+        span.innerHTML = `\\(${equation}\\)`;
+        span.className = 'equation';
+        document.execCommand('insertHTML', false, span.outerHTML);
+        MathJax.typeset();
+    }
+}
+
+function removeEquation() {
+    const equations = document.querySelectorAll('.equation');
+    if (equations.length > 0) {
+        equations[equations.length - 1].remove();
+        MathJax.typeset();
+    } else {
+        alert("No equations found.");
+    }
+}
 

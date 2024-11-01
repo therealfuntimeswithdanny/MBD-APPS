@@ -7,6 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="v2.js"></script>
     <script src="https://kit.fontawesome.com/0ca27f8db1.js" crossorigin="anonymous"></script>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
     <style>
         body { display: flex; flex-direction: column; height: 100vh; margin: 0; }
@@ -83,10 +88,11 @@
                     <button class="button" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i>Numberd list</button>
                     <button class="button" onclick="document.getElementById('imageInput').click()"><i class="fa-solid fa-mountain-sun"></i>Image</button>
                     <input type="file" id="imageInput" style="display: none;" onchange="insertImage(event)">
-                    <button class="button" onclick="insertIframe()">Add Website[Iframe]</button>
-                    <button class="button" onclick="removeIframe()">Remove Website [Iframe]</button>
-                    <button class="button" onclick="insertYouTubeVideo()">Add YouTube Video</button>
-                    <button class="button" onclick="removeYouTubeVideo()">Remove YouTube Video</button>
+                    <button class="button" onclick="insertIframe()"><i class="fa-solid fa-globe"></i>Add Website[Iframe]</button>
+                    <button class="button" onclick="removeIframe()"><i class="fa-solid fa-globe"></i>Remove Website [Iframe]</button>
+                    <button class="button" onclick="insertYouTubeVideo()"><i class="fa-brands fa-youtube"></i>Add YouTube Video</button>
+                    <button class="button" onclick="removeYouTubeVideo()"><i class="fa-brands fa-youtube"></i>Remove YouTube Video</button>
+                    <button class="button" onclick="insertCheckbox()"><i class="fa-regular fa-square-check"></i>Checkbox</button>
                 </div>
             </div>
             <div class="dropdown">
@@ -99,6 +105,29 @@
                     <button class="button" onclick="deleteColumn()">Delete Column</button>
                 </div>
             </div>
+            <div class="dropdown">
+                <button class="button">Images<i class="fa-solid fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <button class="button" onclick="document.getElementById('imageUpload').click()">Upload Image</button>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="openImageEditor(event)">
+                    <button class="button" onclick="removeLastImage()">Remove Last Image</button>
+                    <div id="imageEditorModal" style="display: none;">
+                     <img id="imageToEdit" src="" alt="Image to Edit">
+                     <button onclick="applyCrop()">Apply Crop</button>
+                     <button onclick="closeImageEditor()">Close</button>
+                    </div>
+                    <canvas id="canvas" style="display: none;"></canvas>
+
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="button">Math<i class="fa-solid fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <button class="button" onclick="insertEquation()">Insert Equation</button>
+                    <button class="button" onclick="removeEquation()">Remove Equation</button>
+
+                </div>
+            </div>  
             <div class="dropdown">
                 <button class="button">Text Styleing<i class="fa-solid fa-caret-down"></i></button>
                 <div class="dropdown-content">
