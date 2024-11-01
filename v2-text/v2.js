@@ -444,4 +444,123 @@ function removeEquation() {
         alert("No equations found.");
     }
 }
+function insertAudio(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const audio = document.createElement('audio');
+        audio.src = e.target.result;
+        audio.controls = true;
+        audio.className = 'embedded-audio';
+        document.execCommand('insertHTML', false, audio.outerHTML);
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeLastAudio() {
+    const audios = document.querySelectorAll('.embedded-audio');
+    if (audios.length > 0) {
+        audios[audios.length - 1].remove();
+    } else {
+        alert("No embedded audios found.");
+    }
+}
+function increaseTextSize() {
+    const editor = document.getElementById('editor');
+    const currentSize = window.getComputedStyle(editor, null).getPropertyValue('font-size');
+    const newSize = parseFloat(currentSize) + 2;
+    editor.style.fontSize = newSize + 'px';
+}
+
+function decreaseTextSize() {
+    const editor = document.getElementById('editor');
+    const currentSize = window.getComputedStyle(editor, null).getPropertyValue('font-size');
+    const newSize = parseFloat(currentSize) - 2;
+    editor.style.fontSize = newSize + 'px';
+}
+function getSelectedTable() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        let node = range.startContainer;
+        while (node && node.nodeName !== 'TABLE') {
+            node = node.parentNode;
+        }
+        return node;
+    }
+    return null;
+}
+
+function addRow() {
+    const table = getSelectedTable();
+    if (table) {
+        const newRow = table.insertRow();
+        for (let i = 0; i < table.rows[0].cells.length; i++) {
+            newRow.insertCell().innerHTML = '&nbsp;';
+        }
+    }
+}
+
+function deleteRow() {
+    const table = getSelectedTable();
+    if (table && table.rows.length > 1) {
+        table.deleteRow(-1);
+    }
+}
+
+function addColumn() {
+    const table = getSelectedTable();
+    if (table) {
+        for (let i = 0; i < table.rows.length; i++) {
+            table.rows[i].insertCell().innerHTML = '&nbsp;';
+        }
+    }
+}
+
+function deleteColumn() {
+    const table = getSelectedTable();
+    if (table && table.rows[0].cells.length > 1) {
+        for (let i = 0; i < table.rows.length; i++) {
+            table.rows[i].deleteCell(-1);
+        }
+    }
+}
+
+function mergeCells() {
+    const table = getSelectedTable();
+    const selection = window.getSelection();
+    if (table && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const startCell = range.startContainer.closest('td, th');
+        const endCell = range.endContainer.closest('td, th');
+
+        if (startCell && endCell && startCell !== endCell) {
+            const startIndex = Array.from(startCell.parentNode.children).indexOf(startCell);
+            const endIndex = Array.from(endCell.parentNode.children).indexOf(endCell);
+
+            startCell.colSpan = endIndex - startIndex + 1;
+            endCell.remove();
+        }
+    }
+}
+
+function splitCells() {
+    const table = getSelectedTable();
+    if (table) {
+        const selection = window.getSelection();
+        const selectedCell = selection.anchorNode.closest('td, th');
+
+        if (selectedCell && selectedCell.colSpan > 1) {
+            for (let i = 0; i < selectedCell.colSpan - 1; i++) {
+                const newCell = document.createElement(selectedCell.nodeName);
+                newCell.innerHTML = '&nbsp;';
+                selectedCell.parentNode.insertBefore(newCell, selectedCell.nextSibling);
+            }
+            selectedCell.colSpan = 1;
+        }
+    }
+}
+function toggleHighContrast() {
+    document.body.classList.toggle('high-contrast');
+}
 

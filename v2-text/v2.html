@@ -57,6 +57,26 @@
 .dark-mode #bottomToolbar { padding: 10px; background-color: gray; border-top: 1px solid #ddd; display: flex; justify-content: space-between; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
 
         #bottomToolbar { padding: 10px; background-color: #f0f0f0; border-top: 1px solid #ddd; display: flex; justify-content: space-between; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+        button:focus, input:focus, textarea:focus, div[contenteditable]:focus {
+          outline: 2px solid #0000ff; /* Blue outline */
+         outline-offset: 2px; /* Slightly offset the outline */
+        }
+        .high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.high-contrast button, .high-contrast input, .high-contrast textarea {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+.high-contrast .dropdown-content {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
     </style>
 </head>
 <body>
@@ -94,6 +114,10 @@
                     <button class="button" onclick="insertYouTubeVideo()"><i class="fa-brands fa-youtube"></i>Add YouTube Video</button>
                     <button class="button" onclick="removeYouTubeVideo()"><i class="fa-brands fa-youtube"></i>Remove YouTube Video</button>
                     <button class="button" onclick="insertCheckbox()"><i class="fa-regular fa-square-check"></i>Checkbox</button>
+                    <button class="button" onclick="document.getElementById('audioUpload').click()">Upload Audio</button>
+                    <input type="file" id="audioUpload" accept="audio/*" style="display: none;" onchange="insertAudio(event)">
+                    <button class="button" onclick="removeLastAudio()">Remove Last Audio</button>
+
                 </div>
             </div>
             <div class="dropdown">
@@ -104,6 +128,8 @@
                     <button class="button" onclick="deleteRow()">Delete Row</button>
                     <button class="button" onclick="addColumn()">Add Column</button>
                     <button class="button" onclick="deleteColumn()">Delete Column</button>
+                    <button class="button" onclick="mergeCells()">Merge Cells</button>
+                    <button class="button" onclick="splitCells()">Split Cells</button>
                 </div>
             </div>
             <div class="dropdown">
@@ -166,11 +192,16 @@
                  <button class="button" onclick="lookupWord()"><i class="fa-solid fa-book-bookmark"></i>Lookup Word</button>
                  <button class="button" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i>Speech to Text</button>
                  <button class="button" onclick="stopSpeechRecognition()"><i class="fa-solid fa-microphone-slash"></i>Stop Speech to Text</button>
+                 <button class="button" onclick="increaseTextSize()">Increase Text Size</button>
+                 <button class="button" onclick="decreaseTextSize()">Decrease Text Size</button>
+                 <button class="button" onclick="toggleHighContrast()"><i class="fa-solid fa-circle-half-stroke" style="color: #ffcd42;"></i>High Contrast Mode</button>
                 </div>
             </div>              
         </div>    
     </div>
+    
     <div id="editor" contenteditable="true" oninput="updateWordCount()"></div>
+
     <div id="bottomToolbar"> 
         <div id="wordCount">Word Count: 0</div> 
         <p>Danny Docs | MBD DEV | Backed By Cloudflare | Icons Powerd By Fontawesome | Version 2.3 [Stable]</p>
